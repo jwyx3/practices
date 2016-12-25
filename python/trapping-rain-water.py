@@ -29,7 +29,7 @@ class Solution:
 
     # @param heights: a list of integers
     # @return: a integer
-    # 单调队列实现
+    # 单纯 单调栈实现
     def trapRainWater0(self, heights):
         deque = [Elevation(heights[0])]
         for i in xrange(1, len(heights)):
@@ -40,6 +40,27 @@ class Solution:
                 deque.pop()
             deque.append(new_el)
         return ans
+
+    # 双指针
+    def trapRainWater1(self, heights):
+        n = len(heights)
+        if n <= 2:
+            return 0
+
+        ans, i, j = 0, 0, n - 1
+        left_height, right_height = 0, 0
+        while i <= j:
+            # the final height of smaller boundary can be determined
+            if heights[i] <= heights[j]:
+                left_height = max(heights[i], left_height)
+                ans += (left_height - heights[i])
+                i += 1
+            else:
+                right_height = max(heights[j], right_height)
+                ans += (right_height - heights[j])
+                j -= 1
+        return ans
+
 
 if __name__ == '__main__':
     s = Solution()
