@@ -12,8 +12,6 @@ class Solution:
     def isScramble(self, s1, s2):
         if not s1 or not s2 or len(s1) != len(s2):
             return False
-        if len(s1) == 1 and len(s2) == 1:
-            return s1 == s2
         n = len(s1)
         dp = [[[(s == 1 and s1[x1] == s2[x2]) for s in xrange(n+1)]
                 for x2 in xrange(n)] for x1 in xrange(n)]
