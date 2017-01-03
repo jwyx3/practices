@@ -26,6 +26,7 @@ class Solution:
         return ans
 
     # O(n)
+    # 找最大连续区间和最小连续区间
     def continuousSubarraySumII(self, A):
         ans = [-1, -1]
         if not A:
