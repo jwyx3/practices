@@ -9,6 +9,7 @@ class Solution:
     #       = 1                             # otherwise
     # initial: dp[0] = 1
     # ans: max(dp[...])
+    # O(n^2)
     def longestIncreasingSubsequence(self, nums):
         if not nums:
             return 0
