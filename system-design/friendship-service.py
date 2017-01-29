@@ -9,9 +9,9 @@ class FriendshipService:
     # return {int[]} all followers and sort by user_id
     def get_followers(self, user_id):
         # Write your code here
-        result = []
-        if user_id in self.followers:
-            result = list(self.followers[user_id])
+        if user_id not in self.followers:
+            return []
+        result = list(self.followers[user_id])
         result.sort()
         return result
 
@@ -19,9 +19,9 @@ class FriendshipService:
     # return {int[]} all followers and sort by user_id
     def get_followings(self, user_id):
         # Write your code here
-        result = []
-        if user_id in self.followings:
-            result = list(self.followings[user_id])
+        if user_id not in self.followings:
+            return []
+        result = list(self.followings[user_id])
         result.sort()
         return result
 
