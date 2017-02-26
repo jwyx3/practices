@@ -1,43 +1,36 @@
-import random
-
 class Solution:
     # @param k & A a integer and an array
     # @return ans a integer
+
+    # time O(n), space O(1): quick select
     def kthLargestElement(self, k, A):
-        if not A or len(A) < k or k <= 0:
-            return 0
-        return self.helper(A, 0, len(A) - 1, len(A) - k)
+        if not A or len(A) < k:
+            return -1
+        return self.quickselect(A, 0, len(A) - 1, k)
 
-    # k is the index of kth largest element
-    def helper(self, A, left, right, k):
-        if left == right:
-            return A[left]
-        # random
-        idx = random.randint(left, right)
-        A[left], A[idx] = A[idx], A[left]
-        # get the index of pivot
-        pos = self.partition(A, left, right)
-        # if it's kth largest element
-        if pos == k:
-            return A[pos]
-        elif pos < k:
-            return self.helper(A, pos + 1, right, k)
-        else:
-            return self.helper(A, left, pos - 1, k)
+    def quickselect(self, A, start, end, k):
+        if start == end:
+            return A[start]
 
-    def partition(self, A, left, right):
-        pivot = A[left]
+        # partition
+        left, right = start, end
+        mid = left + (right - left) / 2
+        pivot, A[mid] = A[mid], A[left]
         while left < right:
-            while left < right and A[right] >= pivot:
+            # find last element > pivot
+            while left < right and A[right] <= pivot:
                 right -= 1
             A[left] = A[right]
-            while left < right and A[left] <= pivot:
+            # find first element < pivot
+            while left < right and A[left] >= pivot:
                 left += 1
             A[right] = A[left]
         A[left] = pivot
-        return left
 
-if __name__ == '__main__':
-    s = Solution()
-    print s.kthLargestElement(10, [1,2,3,4,5,6,8,9,10,7]), '#', '1'
-    print s.kthLargestElement(3, [9,3,2,4,8]), '#', '4'
+        # split
+        if left + 1 == k:
+            return A[left]
+        elif left + 1 > k:
+            return self.quickselect(A, start, left - 1, k)
+        else:
+            return self.quickselect(A, left + 1, end, k)
