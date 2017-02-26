@@ -2,20 +2,17 @@ class Solution:
     # @param S: a list of integers
     # @return: a integer
     def triangleCount(self, S):
-        # corner cases:
-        # 1. len(s) < 3
+        if not S or len(S) < 3:
+            return 0
+        S.sort(reverse=True)
         count = 0
-        if len(S) < 3:
-            return count
-        # sort
-        S = sorted(S)
-        # pick one
-        for z in xrange(2, len(S)):
-            x, y = 0, z - 1
-            while x < y:
-                if S[x] + S[y] > S[z]:
-                    count += (y - x)
-                    y -= 1
+        for i in range(len(S) - 2):
+            left, right = i + 1, len(S) - 1
+            while left < right:
+                if S[left] + S[right] > S[i]:
+                    count += (right - left)
+                    # reverse order!!
+                    left += 1
                 else:
-                    x += 1
+                    right -= 1
         return count

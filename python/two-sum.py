@@ -4,39 +4,32 @@ class Solution:
     @param target : target = numbers[index1] + numbers[index2]
     @return : [index1 + 1, index2 + 1] (index1 < index2)
     """
-    # Space: O(n), Time: O(nlogn)
+    # time O(nlogn), space O(n): two pointers
     def twoSum(self, numbers, target):
-        nums = sorted([(numbers[i], i) for i in xrange(len(numbers))], key=lambda x: x[0])
-        i, j = 0, len(nums) - 1
-        while i < j:
-            s = nums[i][0] + nums[j][0]
-            if s > target:
-                j -= 1
-            elif s < target:
-                i += 1
+        if not numbers or len(numbers) <= 1:
+            return [-1, -1]
+        nums = [(num, idx) for idx, num in enumerate(numbers)]
+        nums.sort(key=lambda x: x[0])
+        left, right = 0, len(nums) - 1
+        while left < right:
+            left_val, left_idx = nums[left]
+            right_val, right_idx = nums[right]
+            if left_val + right_val == target:
+                return sorted([left_idx + 1, right_idx + 1])
+            elif left_val + right_val < target:
+                left += 1
             else:
-                break
-        ans = [nums[i][1] + 1, nums[j][1] + 1]
-        if ans[0] > ans[1]:
-            ans[0], ans[1] = ans[1], ans[0]
-        return ans
+                right -= 1
+        return [-1, -1]
 
-    # Space: O(n), Time: O(n)
+    # time O(n), space O(n): hash
     def twoSum0(self, numbers, target):
-        nums_map = {}
-        for i in xrange(len(numbers)):
-            # handle duplicate
-            if numbers[i] in nums_map:
-                nums_map[numbers[i]].append(i)
-            else:
-                nums_map[numbers[i]] = [i]
-        ans = None
-        for k in nums_map.keys():
-            if target - k in nums_map:
-                if target - k == k and len(nums_map[k]) >= 2:
-                    ans = [x + 1 for x in nums_map[k][:2]]
-                else:
-                    ans = [nums_map[k][0] + 1, nums_map[target - k][0] + 1]
-        if ans[0] > ans[1]:
-            ans[0], ans[1] = ans[1], ans[0]
-        return ans
+        if not numbers or len(numbers) <= 1:
+            return [-1, -1]
+        visited = {}
+        for idx, num in enumerate(numbers):
+            rest = target - num
+            if rest in visited:
+                return [visited[rest] + 1, idx + 1]
+            visited[num] = idx
+        return [-1, -1]

@@ -41,24 +41,24 @@ class Solution:
             deque.append(new_el)
         return ans
 
-    # 双指针
-    def trapRainWater1(self, heights):
-        n = len(heights)
-        if n <= 2:
+    # two pointers
+    def trapRainWater(self, heights):
+        if not heights or len(heights) <= 2:
             return 0
-
-        ans, i, j = 0, 0, n - 1
-        left_height, right_height = 0, 0
-        while i <= j:
-            # the final height of smaller boundary can be determined
-            if heights[i] <= heights[j]:
-                left_height = max(heights[i], left_height)
-                ans += (left_height - heights[i])
-                i += 1
+        left, right = 0, len(heights) - 1
+        ans, left_h, right_h = 0, 0, 0
+        while left < right:
+            # the water of smaller boundary is determined
+            # the water it hold is determined by the max water height
+            # of related side
+            if heights[left] < heights[right]:
+                left_h = max(left_h, heights[left])
+                ans += (left_h - heights[left])
+                left += 1
             else:
-                right_height = max(heights[j], right_height)
-                ans += (right_height - heights[j])
-                j -= 1
+                right_h = max(right_h, heights[right])
+                ans += (right_h - heights[right])
+                right -= 1
         return ans
 
 

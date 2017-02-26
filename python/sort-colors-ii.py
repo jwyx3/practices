@@ -5,28 +5,27 @@ class Solution:
     @return: nothing
     """
     def sortColors2(self, colors, k):
-        # write your code here
-        self.rainbowSort(colors, 0, len(colors) - 1, 1, k)
+        if not colors or len(colors) < k:
+            return
+        self.rainbow_sort(colors, 0, len(colors) - 1, 1, k)
 
-    def rainbowSort(self, colors, left, right, colorFrom, colorTo):
-        if colorFrom == colorTo:
+    def rainbow_sort(self, colors, start, end, color_from, color_to):
+        if color_from == color_to:
             return
-        if left >= right:
+        if start >= end:
             return
-        colorMid = (colorFrom + colorTo) / 2
-        start, end = left, right
+        color_mid = (color_from + color_to) / 2
+        left, right = start, end
         while left <= right:
-            # let left point to first color which > colorMid
-            while left <= right and colors[left] <= colorMid:
+            # find first color > color_mid
+            while left <= right and colors[left] <= color_mid:
                 left += 1
-            # left right point to first color which <= colorMid
-            while left <= right and colors[right] > colorMid:
+            # find last color <= color_mid
+            while left <= right and colors[right] > color_mid:
                 right -= 1
-            # If it's still valid
             if left <= right:
                 colors[left], colors[right] = colors[right], colors[left]
                 left += 1
                 right -= 1
-
-        self.rainbowSort(colors, start, left, colorFrom, colorMid)
-        self.rainbowSort(colors, right, end, colorMid + 1, colorTo)
+        self.rainbow_sort(colors, start, right, color_from, color_mid)
+        self.rainbow_sort(colors, left, end, color_mid + 1, color_to)
