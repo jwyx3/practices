@@ -31,7 +31,7 @@ class Solution:
             new_node.next = curt.next
             curt.next = new_node
             curt = new_node.next
-
+        # copy random and next
         curt = head
         while curt:
             if curt.random:

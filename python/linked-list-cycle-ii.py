@@ -13,21 +13,19 @@ class Solution:
                 if there is no cycle, return null
     """
     def detectCycle(self, head):
-        p1 = p2 = head
-        while p1 and p2:
-            p1 = p1.next
-            p2 = p2.next
-            if p2:
-                p2 = p2.next
-            if p2 and p1 == p2:
+        slow = fast = head
+        while slow and fast:
+            slow = slow.next
+            fast = fast.next
+            if fast:
+                fast = fast.next
+            if fast and fast == slow:
                 break
-        # found joint point
-        if p2 and p1 == p2:
-            p1 = head
-            while p1 != p2:
-                p1 = p1.next
-                p2 = p2.next
-            return p1
+        if fast and fast == slow:
+            fast = head
+            while fast != slow:
+                fast = fast.next
+                slow = slow.next
+            return fast
         return None
-
 
