@@ -1,5 +1,3 @@
-import sys
-
 class Solution:
     """
     @param nums: A list of integers
@@ -9,17 +7,18 @@ class Solution:
     # O(nlogn)
     def subarraySumClosest(self, nums):
         if not nums:
-            return None
-        sums, n = [0], len(nums)
-        for s in xrange(1, n+1):
-            sums.append(sums[s-1] + nums[s-1])
-        # O(nlogn)
-        sorted_sums = sorted([(sums[i], i) for i in xrange(len(sums))])
-        ans, min_diff = None, sys.maxint
-        for i in xrange(n):
-            diff = abs(sorted_sums[i+1][0] - sorted_sums[i][0])
-            if diff < min_diff:
-                min_diff = diff
-                ans = sorted([sorted_sums[i+1][1], sorted_sums[i][1]])
-                ans[1] -= 1
+            return [-1, -1]
+        sums = [0]
+        for i in range(len(nums)):
+            sums.append(sums[i] + nums[i])
+        # sort
+        sorted_sums = sorted([(s, i) for i, s in enumerate(sums)])
+        min_diff, ans = sys.maxint, [-1, -1]
+        for i in range(1, len(sorted_sums)):
+            s1, i1 = sorted_sums[i - 1]
+            s2, i2 = sorted_sums[i]
+            if min_diff > abs(s1 - s2):
+                min_diff = abs(s1 - s2)
+                ans = [min(i1, i2), max(i1, i2) - 1]
         return ans
+
