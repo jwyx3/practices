@@ -26,7 +26,7 @@ class Solution:
         if right_len > 0 and node.val + 1 == node.right.val:
             node_len = max(node_len, right_len + 1)
 
-        if self.max_len is None or self.max_len < node_len:
+        if self.max_len < node_len:
             self.max_len = node_len
 
         return node_len
