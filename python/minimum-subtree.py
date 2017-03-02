@@ -5,7 +5,7 @@ class TreeNode:
         this.val = val
         this.left, this.right = None, None
 """
-class Solution:
+class Solution1:
     # @param {TreeNode} root the root of binary tree
     # @return {TreeNode} the root of the minimum subtree
     def findSubtree(self, root):
@@ -30,3 +30,37 @@ class Solution:
             self.min_node = node
 
         return node_sum
+
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        this.val = val
+        this.left, this.right = None, None
+"""
+class Result(object):
+    def __init__(self, min_total, total, root):
+        self.min_total = min_total
+        self.total = total
+        self.root = root
+
+
+class Solution:
+    # @param {TreeNode} root the root of binary tree
+    # @return {TreeNode} the root of the minimum subtree
+    def findSubtree(self, root):
+        ans = self.dfs(root)
+        return ans.root
+
+    def dfs(self, root):
+        if not root:
+            return Result(sys.maxint, 0, root)
+        left = self.dfs(root.left)
+        right = self.dfs(root.right)
+        total = root.val + left.total + right.total
+        ans = Result(total, total, root)
+        if ans.min_total > left.min_total:
+            ans = Result(left.min_total, total, left.root)
+        if ans.min_total > right.min_total:
+            ans = Result(right.min_total, total, right.root)
+        return ans

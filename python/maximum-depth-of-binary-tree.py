@@ -5,13 +5,20 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
-class Solution:
+class solution:
     """
-    @param root: The root of binary tree.
-    @return: An integer
+    @param root: the root of binary tree.
+    @return: an integer
     """
-    def maxDepth(self, root):
-        # write your code here
+    def maxdepth(self, root):
+        if not root:
+            return 0
+        left = self.maxdepth(root.left)
+        right = self.maxdepth(root.right)
+        return 1 + max(left, right)
+
+
+class Solution1:
         def dfs(node, depth, result):
             if not node.left and not node.right:
                 result['max_depth'] = max(result['max_depth'], depth)

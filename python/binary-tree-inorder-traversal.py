@@ -10,10 +10,10 @@ class TreeNode:
 class Solution:
     """
     @param root: The root of binary tree.
-    @return: Preorder in ArrayList which contains node values.
+    @return: Inorder in ArrayList which contains node values.
     """
     # recursion
-    def preorderTraversal(self, root):
+    def inorderTraversal(self, root):
         return self.dfs(root)
 
     def dfs(self, root):
@@ -21,18 +21,18 @@ class Solution:
             return []
         left = self.dfs(root.left)
         right = self.dfs(root.right)
-        return [root.val] + left + right
+        return left + [root.val] + right
 
     # non-recursion
-    def preorderTraversal1(self, root):
+    def inorderTraversal1(self, root):
         if not root:
             return []
-        ans, stack = [], [root]
-        while stack:
-            node = stack.pop()
-            ans.append(node.val)
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
+        ans, stack, curt = [], [], root
+        while curt or stack:
+            while curt:
+                stack.append(curt)
+                curt = curt.left
+            curt = stack.pop()
+            ans.append(curt.val)
+            curt = curt.right
         return ans

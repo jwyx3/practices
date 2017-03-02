@@ -9,25 +9,21 @@ class Solution:
     # @param root: a TreeNode, the root of the binary tree
     # @return: nothing
     def flatten(self, root):
-        # write your code here
         self.dfs(root)
 
-    def dfs(self, node):
-        if node is None:
+    # return tail
+    def dfs(self, root):
+        if not root:
             return None
-
-        left_end = self.dfs(node.left)
-        right_end = self.dfs(node.right)
-
-        if left_end is not None:
-            left_end.right = node.right
-            node.right = node.left
-            node.left = None
-
-        if right_end is not None:
-            return right_end
-
-        if left_end is not None:
-            return left_end
-
-        return node
+        left = self.dfs(root.left)
+        right = self.dfs(root.right)
+        if left:
+            left.right = root.right
+            root.right = root.left
+            # remember this!!
+            root.left = None
+        if right:
+            return right
+        if left:
+            return left
+        return root

@@ -12,25 +12,19 @@ class Solution:
     @param A and B: two nodes in a Binary.
     @return: Return the least common ancestor(LCA) of the two nodes.
     """
-    # divide and conquer
-    # find A and B, return LCA
-    # find A, return A
-    # find B, return B
-    # not find, return None
-    def lowestCommonAncestor(self, root, A, B):
-        # write your code here
-        if root is None or root == A or root == B:
-            return root
 
+    # Assume two nodes are exist in tree.
+    # return None or A or B or LCA
+    def lowestCommonAncestor(self, root, A, B):
+        if not root or root == A or root == B:
+            return root
         left = self.lowestCommonAncestor(root.left, A, B)
         right = self.lowestCommonAncestor(root.right, A, B)
-
-        if left is not None and right is not None:
+        if left and right:
             return root
-        if left is not None:
+        if left:
             return left
-        if right is not None:
+        if right:
             return right
         return None
-
 

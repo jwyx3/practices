@@ -9,24 +9,26 @@ class Solution:
     # @param {TreeNode} root the root of binary tree
     # @return {TreeNode} the root of the maximum average of subtree
     def findSubtree2(self, root):
-        if not root:
-            return root
-        self.maxAve = None
-        self.maxNode = None
+        self.max_total = 0
+        self.max_count = 0
+        self.max_root = None
         self.dfs(root)
-        return self.maxNode
+        return self.max_root
 
-    def dfs(self, node):
-        if node is None:
+    def dfs(self, root):
+        if not root:
             return 0, 0
 
-        leftSum, leftNum = self.dfs(node.left)
-        rightSum, rightNum = self.dfs(node.right)
-        nodeSum = leftSum + rightSum + node.val
-        nodeNum = leftNum + rightNum + 1
+        left_total, left_count = self.dfs(root.left)
+        right_total, right_count = self.dfs(root.right)
+        total = left_total + right_total + root.val
+        count = left_count + right_count + 1
 
-        if self.maxAve is None or self.maxAve < 1.0 * nodeSum / nodeNum:
-            self.maxAve = 1.0 * nodeSum / nodeNum
-            self.maxNode = node
+        if not self.max_root or\
+                total * self.max_count > count * self.max_total:
+            self.max_count = count
+            self.max_total = total
+            self.max_root = root
 
-        return nodeSum, nodeNum
+        return total, count
+

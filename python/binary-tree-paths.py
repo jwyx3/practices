@@ -28,3 +28,26 @@ class Solution:
             path.append(str(node.right.val))
             self.dfs(node.right, path, result)
             path.pop()
+
+
+# divide and conquer
+class Solution1:
+    # @param {TreeNode} root the root of the binary tree
+    # @return {List[str]} all root-to-leaf paths
+    def binaryTreePaths(self, root):
+        if not root:
+            return []
+        return self.dfs(root)
+
+    def dfs(self, root):
+        ans, curt = [], str(root.val)
+        if root.left:
+            left = self.binaryTreePaths(root.left)
+            ans.extend([curt + "->" + x for x in left])
+        if root.right:
+            right = self.binaryTreePaths(root.right)
+            ans.extend([curt + "->" + x for x in right])
+        if not ans:
+            ans = [curt]
+        return ans
+
