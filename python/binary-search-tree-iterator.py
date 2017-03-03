@@ -14,23 +14,19 @@ while iterator.hasNext():
 class BSTIterator:
     #@param root: The root of binary tree.
     def __init__(self, root):
-        # write your code here
         self.stack = []
         self.node = root
 
     #@return: True if there has next node, or false
     def hasNext(self):
-        # write your code here
-        return self.node is not None or len(self.stack) > 0
+        while self.node:
+            self.stack.append(self.node)
+            self.node = self.node.left
+        return self.node or len(self.stack) > 0
 
     #@return: return next node
     def next(self):
-        #write your code here
-        while self.node is not None:
-            self.stack.append(self.node)
-            self.node = self.node.left
-
-        self.node = self.stack.pop()
-        ans = self.node
-        self.node = self.node.right
-        return ans
+        node = self.stack.pop()
+        if node.right:
+            self.node = node.right
+        return node

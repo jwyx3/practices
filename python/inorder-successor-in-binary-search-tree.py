@@ -12,29 +12,21 @@ class Solution(object):
     @return <TreeNode>: Successor of p.
     """
     def inorderSuccessor(self, root, p):
-        node, successor_node, parent_node = root, None, None
-        while node and node != p:
-            if p.val < node.val:
-                # the potential successor of left node is parent node
-                successor_node = node
-                next_node = node.left
+        successor = None
+        while root and root != p:
+            if root.val > p.val:
+                successor = root
+                root = root.left
             else:
-                # the potential successor of right node is parent of parent node
-                successor_node = parent_node
-                next_node = node.right
-            parent_node, node = node, next_node
+                root = root.right
 
-        # p is not found
-        if not node:
+        if not root:
             return None
 
-        # if right node of p is absent, successor node is found
-        if not p.right:
-            return successor_node
+        if not root.right:
+            return successor
 
-        # otherwise, get the most left successor of right substree
-        node = p.right
-        while node.left:
-            node = node.left
-        return node
-
+        root = root.right
+        while root.left:
+            root = root.left
+        return root
