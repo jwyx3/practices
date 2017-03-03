@@ -19,14 +19,13 @@ class BSTIterator:
 
     #@return: True if there has next node, or false
     def hasNext(self):
-        while self.node:
-            self.stack.append(self.node)
-            self.node = self.node.left
         return self.node or len(self.stack) > 0
 
     #@return: return next node
     def next(self):
+        while self.node:
+            self.stack.append(self.node)
+            self.node = self.node.left
         node = self.stack.pop()
-        if node.right:
-            self.node = node.right
+        self.node = node.right
         return node
