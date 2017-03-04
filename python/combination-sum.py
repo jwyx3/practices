@@ -4,7 +4,7 @@ class Solution:
     # @return a list of lists of integers
     def combinationSum(self, candidates, target):
         ans = []
-        if not candidates:
+        if not candidates or target <= 0:
             return ans
         candidates.sort()
         self.dfs(candidates, target, [], ans)

@@ -16,6 +16,7 @@ class Solution:
         if not s:
             # copy partition
             result.append(partition[:])
+            return
         for i in xrange(1, len(s) + 1):
             if self.isPalindrome(s[:i]):
                 partition.append(s[:i])

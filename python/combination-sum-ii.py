@@ -5,26 +5,22 @@ class Solution:
     @return: All the combinations that sum to target
     """
     def combinationSum2(self, candidates, target):
-        ans = []
         if not candidates or target <= 0:
-            return ans
+            return []
+        result = []
         candidates.sort()
-        self.dfs(candidates, target, 0, [], ans)
-        return ans
+        self.dfs(candidates, 0, [], target, result)
+        return result
 
-    def dfs(self, candidates, target, start_index, combination, ans):
+    def dfs(self, candidates, start, combination, target, result):
         if target <= 0:
             if target == 0:
-                ans.append(combination[:])
+                result.append(combination[:])
             return
-
         for i, num in enumerate(candidates):
-            if i < start_index:
-                continue
-            # [1, 0, ...] is duplicate with [0, 1, ...]
-            # so remove [0, 1, ...]
-            if i > start_index and candidates[i - 1] == candidates[i]:
+            # remove duplicate and select consective numbers for same value
+            if i < start or i > start and candidates[i] == candidates[i - 1]:
                 continue
             combination.append(num)
-            self.dfs(candidates, target - num, i + 1, combination, ans)
+            self.dfs(candidates, i + 1, combination, target - num, result)
             combination.pop()

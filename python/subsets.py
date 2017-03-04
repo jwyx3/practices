@@ -23,3 +23,16 @@ class Solution:
         for x in sorted(S):
             result.extend([subset + [x] for subset in result])
         return result
+
+    # non-recursion
+    def subsets(self, S):
+        result, n = [], len(S)
+        S.sort()
+        # each subset equal to one of 0 ~ 2^n - 1
+        for i in range(1 << n):
+            subset = []
+            for j in range(n):
+                if i & (1 << j):
+                    subset.append(S[j])
+            result.append(subset)
+        return result
