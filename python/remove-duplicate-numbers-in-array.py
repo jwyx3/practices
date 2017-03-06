@@ -24,6 +24,6 @@ class Solution:
         for i in range(len(nums)):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
-            nums[curt] = nums[curt]
+            nums[curt] = nums[i]
             curt += 1
         return curt
