@@ -6,10 +6,12 @@ class Solution:
         ans = []
         if not candidates or target <= 0:
             return ans
+        # sort!! used for removing duplicate
         candidates.sort()
         self.dfs(candidates, target, [], ans)
         return ans
 
+    # traversal
     def dfs(self, candidates, target, combination, ans):
         if target <= 0:
             if target == 0:
