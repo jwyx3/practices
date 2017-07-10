@@ -21,4 +21,26 @@ class Solution:
         dfs(sorted(S), 0, [], result)
         return result
 
+class Solution:
+    """
+    @param S: A set of numbers.
+    @return: A list of lists. All valid subsets.
+    """
+    def subsetsWithDup(self, S):
+        def dfs(S, start_index, subset, ans):
+            ans.append(subset[:])
+            for i in range(start_index, len(S)):
+                # skip subproblem with prefix subset + [S[i]]
+                # because it's same as subproblem with prfix subset + [S[i-1]]
+                if i > start_index and S[i - 1] == S[i]:
+                    continue
+                subset.append(S[i])
+                dfs(S, i + 1, subset, ans)
+                subset.pop()
 
+        ans = []
+        if S is None:
+            return ans
+        S.sort()
+        dfs(S, 0, [], ans)
+        return ans
