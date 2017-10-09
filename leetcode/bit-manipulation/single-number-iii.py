@@ -9,6 +9,7 @@ class Solution(object):
         for num in nums:
             x ^= num
         # extract the last bit
+        # -x = ~(x-1) 减1取反，twos-complement
         bit = x & -x
         # divide to two groups and apply XOR
         result = [0, 0]

@@ -2,6 +2,8 @@
 #       10-letter-long sequence可以转化为20bits的hash值
 #       使用0xfffff作为mask
 #       使用hash来记录相同hash值出现次数
+#
+# sliding window
 class Solution(object):
     def findRepeatedDnaSequences(self, s):
         """
@@ -17,6 +19,7 @@ class Solution(object):
             code &= mask
             if i >= 9:
                 count[code] += 1
+            # add once
             if i >= 10 and count[code] == 2:
                 result.append(s[i - 9:i + 1])
         return result
