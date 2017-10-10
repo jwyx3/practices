@@ -1,0 +1,4 @@
+# operations
+* insert
+* search
+* startsWith
