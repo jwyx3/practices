@@ -1,0 +1,26 @@
+# credit: https://medium.com/@oivoodoo/docker-compose-kafka-zookeeper-b51303a4cf82
+version: "3"
+
+services:
+  zookeeper:
+    image: confluent/zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      zk_id: "1"
+    networks:
+      - elk-net
+  kafka:
+    image: confluent/kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+    networks:
+      - elk-net
+
+networks:
+  elk-net:
+    external: true
