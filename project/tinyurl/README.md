@@ -97,7 +97,7 @@
 
 ### work solution
 
-![Sample generated UML diagram](https://bramp.github.io/js-sequence-diagrams/images/sample.svg)
+![CreateUrl](https://github.com/jwyx3/practices/tree/master/project/tinyurl/diagrams/CreateUrl.svg)
 
 ### scale
 
