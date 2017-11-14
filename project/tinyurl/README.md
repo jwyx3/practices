@@ -98,6 +98,7 @@
 ### work solution
 
 ![CreateUrl](https://github.com/jwyx3/practices/tree/master/project/tinyurl/diagrams/CreateUrl.svg)
+
 ![GetUrl](https://github.com/jwyx3/practices/tree/master/project/tinyurl/diagrams/GetUrl.svg)
 
 ### scale
