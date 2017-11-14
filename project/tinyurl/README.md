@@ -95,6 +95,10 @@
 |    | created_at: datetime |
 |    | last_login: datetime |
 
+### work solution
+
+![Sample generated UML diagram](https://bramp.github.io/js-sequence-diagrams/images/sample.svg)
+
 ### scale
 
 
