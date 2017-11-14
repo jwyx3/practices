@@ -23,30 +23,77 @@
 #### estimation
 
 * Assumption
-  1. write 500M req/month
-  1. read/write ratio = 100
-  1. size of url object = 500 byte
+  * write 500M req/month
+  * read/write ratio = 100
+  * size of url object = 500 byte
 
 * QPS
-  1. write: 500M req/month = 500M / (30 * 24 * 3600) =~ 200 req/s
-  1. read: 500M * 100 req/month = 500M * 100 / (30 * 24 * 3600) =~ 20K req/s 
+  * write: 500M req/month = 500M / (30 * 24 * 3600) =~ 200 req/s
+  * read: 500M * 100 req/month = 500M * 100 / (30 * 24 * 3600) =~ 20K req/s 
 
 * Storage (5 years)
-  1. number of urls: 500M * 12 * 5 = 30B
-  1. size: 30B * 500 byte = 15PB
+  * number of urls: 500M * 12 * 5 = 30B
+  * size: 30B * 500 byte = 15PB
 
 * Bandwidth
-  1. write: 200 req/s * 500 byte = 100 KB/s
-  1. read: 20K req/s * 500 byte = 10 MB/s
+  * write: 200 req/s * 500 byte = 100 KB/s
+  * read: 20K req/s * 500 byte = 10 MB/s
 
 * Memory (80/20 rules, 20% of daily read should be cached)
-  1. 20K req/s * 500 byte * 24 * 3600 * 0.2 =~ 172GB
+  * 20K req/s * 500 byte * 24 * 3600 * 0.2 =~ 172GB
 
 ### service
+
+#### TinyUrlService
+
+* POST createUrl(api_key, original_url, custom_alias=None, expired_at=None)
+  * return short url if success
+  * otherwise, return http error
+
+* DELETE deleteUrl(api_key, short_alias):
+  * return 200
+  * otherwise, return 404, 403, 401
+
+* GET <short_url>
+  * return 301 and Host header with original url
+  * otherwise return 404
+
+#### KeyGenService
+
+* base64, i.e. [0-9a-zA-Z-.]
+  * 6 letters: 64^6 =~ 68.7B > 30B, should be enough for 5 years!
+  * 7 letters: 64^7 =~ 4.4T
+  * 8 letters: 64^8 =~ 281T
+* generate url id offline with 6 random letters
+
+#### CacheService
+
+* use memcached
 
 
 ### storage
 
+* use NoSQL, e.g. Cassandra
+  * no complex relationship
+  * billions of records
+
+* Schemas
+
+|   | Url |
+| --- | --- |
+| PK | id: varchar(16) |
+|    | url: varchar(512) |
+|    | created_at: datetime |
+|    | expired_at: datetime |
+|    | user_id: int |
+
+|   | User |
+| --- | --- |
+| PK | id: int |
+|    | name: varchar(20) |
+|    | email: varchar(30) |
+|    | created_at: datetime |
+|    | last_login: datetime |
 
 ### scale
 
