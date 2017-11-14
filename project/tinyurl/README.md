@@ -5,6 +5,15 @@
 1. git config --global core.editor vim
 1. git config --global --edit
 1. install [vimrc](https://github.com/amix/vimrc) 
+1. sudo yum install python36
+1. sudo pip install virtualenv
+1. sudo python36 -m pip install --upgrade pip setuptools wheel virtualenv tox
+1. python36 -m tox
+1. source .tox/py36/bin/activate
+1. python api.py
+1. curl http://127.0.0.1:5000/
+1. `curl -v http://127.0.0.1:5000/shorten -X POST -d "url=https://www.google.com"`
+1. `curl -v -L http://127.0.0.1:5000/xxx`
 
 ### scenarios
 
