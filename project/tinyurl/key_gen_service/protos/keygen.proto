@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "jwyx3.tinyurl.keygen";
+option java_outer_classname = "KeyGenProto";
+option objc_class_prefix = "KGS";
+
+package keygen;
+
+service KeyGen {
+  rpc ListKeys (Empty) returns (stream Key) {}
+}
+
+// The JSON representation for `Empty` is empty JSON object `{}`.
+message Empty {}
+
+message Key {
+  string id = 1;
+}
+

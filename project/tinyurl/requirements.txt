@@ -1,2 +1,4 @@
 Flask
 flask-restful
+cassandra-driver
+grpcio-tools

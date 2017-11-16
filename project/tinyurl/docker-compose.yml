@@ -1,0 +1,18 @@
+version: "3.2"
+services:
+  cassandra:
+    image: cassandra:3.11.1
+    volumes:
+      - "cassandra_data:/var/lib/cassandra"
+      - "./tinyurl.cql:/docker-entrypoint-initdb.d/tinyurl.cql"
+    ports:
+      - "127.0.0.1:9042:9042"
+    networks:
+      overlay:
+
+volumes:
+  cassandra_data:
+
+networks:
+  overlay:
+
