@@ -4,14 +4,23 @@ services:
     image: cassandra:3.11.1
     volumes:
       - "cassandra_data:/var/lib/cassandra"
-      - "./tinyurl.cql:/docker-entrypoint-initdb.d/tinyurl.cql"
     ports:
       - "127.0.0.1:9042:9042"
     networks:
       overlay:
+  redis:
+    image: redis:4.0.2
+    volumes:
+      - "redis_data:/data"
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      overlay:
+
 
 volumes:
   cassandra_data:
+  redis_data:
 
 networks:
   overlay:

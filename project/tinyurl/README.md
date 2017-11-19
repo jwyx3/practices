@@ -14,6 +14,7 @@
 1. curl http://127.0.0.1:5000/
 1. `curl -v http://127.0.0.1:5000/shorten -X POST -d "url=https://www.google.com"`
 1. `curl -v -L http://127.0.0.1:5000/xxx`
+1. python run_keygen.py
 
 ### scenarios
 
@@ -79,7 +80,6 @@
 
 * use memcached
 
-
 ### storage
 
 * use NoSQL, e.g. Cassandra
@@ -88,21 +88,19 @@
 
 * Schemas
 
-|   | Url |
-| --- | --- |
-| PK | id: varchar(16) |
+|   | url |
+| -- | -- |
+| PK | id: varchar(6) |
 |    | url: varchar(512) |
 |    | created_at: datetime |
 |    | expired_at: datetime |
-|    | user_id: int |
 
-|   | User |
-| --- | --- |
-| PK | id: int |
-|    | name: varchar(20) |
-|    | email: varchar(30) |
+|   | custom_url |
+| -- | -- |
+| PK | id: varchar(32) |
+|    | url: varchar(512) |
 |    | created_at: datetime |
-|    | last_login: datetime |
+|    | expired_at: datetime |
 
 ### work solution
 
@@ -117,4 +115,15 @@
 
 * flask
 * cassandra
-* grpc
+* redis
+
+### refer
+
+![lua-redis](https://www.redisgreen.net/blog/intro-to-lua-for-redis-programmers/)
+![spop-not-valid-in-lua](https://github.com/antirez/redis/issues/2139)
+
+### issue
+
+* keygen: not random enough
+* no expired_at, stats
+* duplicate between url and custom_url
