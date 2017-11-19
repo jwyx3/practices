@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  redis:
+    image: redis:4.0.2
+    volumes:
+      - "redis_data:/data"
+    ports:
+      - "127.0.0.1:6379:6379"
+    networks:
+      overlay:
+
+volumes:
+  redis_data:
+
+networks:
+  overlay:
+
