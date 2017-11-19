@@ -90,13 +90,6 @@
 
 |   | url |
 | -- | -- |
-| PK | id: varchar(6) |
-|    | url: varchar(512) |
-|    | created_at: datetime |
-|    | expired_at: datetime |
-
-|   | custom_url |
-| -- | -- |
 | PK | id: varchar(32) |
 |    | url: varchar(512) |
 |    | created_at: datetime |

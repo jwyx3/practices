@@ -11,7 +11,7 @@ from cassandra.cqlengine import connection
 from cassandra.cqlengine.management import sync_table
 from cassandra.cqlengine.query import LWTException, DoesNotExist
 
-from model import Url, CustomUrl
+from model import Url
 
 
 def custom_alias_type(data):
@@ -107,29 +107,21 @@ class CreateUrl(Resource):
         args = parser.parse_args()
         if args.get('custom_alias'):
             url_hash = args['custom_alias']
-            try:
-                CustomUrl.create(
-                    id=url_hash, url=args['url'], expired_at=args.get('expired_at'),
-                    created_at=datetime.utcnow()
-                ).if_not_exists()
-            except LWTException:
-                pass
         else:
             url_hash = base62_encode(get_url_id())
             _LOG.info(f'use url_hash: {url_hash}')
+        try:
             Url.create(
                 id=url_hash, url=args['url'], expired_at=args.get('expired_at'),
-                created_at=datetime.utcnow())
+                created_at=datetime.utcnow()
+            ).if_not_exists()
+        except LWTException:
+            abort(409, description=f'/{url_hash} is already used')
         return {'short_url': url_for('geturl', url_hash=url_hash, _external=True)}, 201
 
 
 class GetUrl(Resource):
     def get(self, url_hash):
-        try:
-            url_obj = CustomUrl.get(id=url_hash)
-            return {}, 301, {'Location': url_obj['url']}
-        except DoesNotExist:
-            pass
         try:
             url_obj = Url.get(id=url_hash)
             return {}, 301, {'Location': url_obj['url']}
@@ -149,7 +141,6 @@ def get_app():
     connection.setup(['127.0.0.1'], _NAME, lazy_connect=True,
         retry_connect=True, protocol_version=3)
     sync_table(Url)
-    sync_table(CustomUrl)
 
     return app
 
