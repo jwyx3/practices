@@ -29,29 +29,38 @@ similar to recommand system
 
 ### storage
 
-ListenLog
-| | |
-|-|-|
-|pk|uuid:varchar(16)|  # uuid.uuid4(): 16 bytes, make log load even
-|pk|timestamp:int(4)|  # log time
-| |user_id:varchar(8)|  # how many user??
-| |music_id:varchar(8)|  # how many music??
+|  | ListenLog |
+| -- | -- |
+| pk | uuid:varchar(16) |
+| pk | timestamp:int(4) |
+|  | user_id:varchar(8) |
+|  | music_id:varchar(8) |
 
-Music
-| | |
-|-|-|
-|pk|music_id:varchar(8)|
-|pk|timestamp:int(4)|  # the count of following one hour
-| |count:int(8)|  # =~ 256T
-| |ttl:int(?)|  # need ttl??
+* uuid.uuid4(): 16 bytes, make log load even
+* timestamp: log time
+* user_id: how many user??
+* music_id: how many music??
 
-TopkMusic
-| | |
-|-|-|
-|pk|name:varchar(256)|  # e.g. top10_last_7_day
-| |list:int(?)|  # cassandra collection??
 
-=> cached this table into redis to fast read
+|  | Music |
+| -- | -- |
+| pk | music_id:varchar(8) |
+| pk | timestamp:int(4) |
+|  | count:int(8) |
+
+* timestamp: the count of following one hour
+* count: =~ 256T
+* need ttl?
+
+
+|  | TopkMusic |
+| -- | -- |
+| pk | name:varchar(256) |
+|  | musics:int(?) |
+
+* name: aggregation name, e.g. top10_last_7_day
+* musics: cassandra collection??
+* cached this table into redis to fast read
 
 ### scale
 
