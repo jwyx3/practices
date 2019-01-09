@@ -1,5 +1,4 @@
 # https://leetcode.com/problems/basic-calculator/
-# TODO: simplify
 
 class Solution(object):
     def calculate(self, s):
@@ -34,3 +33,31 @@ class Solution(object):
                     operands.append(num1 + (1 if op == '+' else -1) * num2)
             i += 1
         return operands[0]
+
+# https://leetcode.com/problems/basic-calculator/discuss/62361/Iterative-Java-solution-with-stack
+class Solution(object):
+    def calculate(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        stack = []
+        res = num = 0
+        sign, s = '+', s + '+' # sentinal
+        for c in s:
+            if c.isdigit():
+                num = 10 * num + int(c)
+            elif c in '+-':
+                res = self.eval(res, sign, num)
+                sign, num = c, 0
+            elif c == '(':
+                stack.append((res, sign))
+                res, sign = 0, '+'
+            elif c == ')':
+                num = self.eval(res, sign, num)
+                res, sign = stack.pop()
+        return res
+    
+    def eval(self, res, sign, num):
+        res += (-1, 1)[sign == '+'] * num
+        return res
