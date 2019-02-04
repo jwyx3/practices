@@ -37,4 +37,4 @@ class Solution(object):
             gap[ci] = i - last[ci]
             last[ci] = i
             res += dp
-        return res
+        return res % (10 ** 9 + 7)
