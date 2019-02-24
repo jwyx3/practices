@@ -12,3 +12,29 @@
 < INT_MAX: O(logn), binary search
 < INT_MAX: O(1) Math
 ```
+
+* [time complexity of recursion] (http://zxi.mytechroad.com/blog/sp/time-space-complexity-of-recursion-functions-sp4/)
+
+```
+Equation	Time	Space	Examples
+T(n) = 2*T(n/2) + O(n)	O(nlogn)	O(logn)	quick_sort
+T(n) = 2*T(n/2) + O(n)	O(nlogn)	O(n + logn)	merge_sort
+T(n) = T(n/2) + O(1)	O(logn)	O(logn)	Binary search
+T(n) = 2*T(n/2) + O(1)	O(n)	O(logn)	Binary tree traversal
+T(n) = T(n-1) + O(1)	O(n)	O(n)	Binary tree traversal
+T(n) = T(n-1) + O(n)	O(n^2)	O(n)	quick_sort(worst case)
+T(n) = n * T(n-1)	O(n!)	O(n)	permutation
+T(n) = T(n-1)+T(n-2)+…+T(1)	O(2^n)	O(n)	combination
+
+
+For recursion with memorization:
+
+Time complexity: |# of subproblems| * |exclusive running time of a subproblem|
+Space complexity:|# of subproblems|  + |max recursion depth| * |space complexity of a subproblem|
+
+Think recursion part as O(1) when we calculate exclusive running time of a subproblem
+```
+
+* [Amortized Analysis](https://zxi.mytechroad.com/blog/sp/amortized-analysis/) 
+
+![time complexity vs amortized complexity](https://zxi.mytechroad.com/blog/wp-content/uploads/2018/09/sp7-1.png)
