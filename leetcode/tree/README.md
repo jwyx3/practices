@@ -1,5 +1,5 @@
 ### resources
-1 (binary tree summary)[https://www.youtube.com/watch?v=PbGl8_-bZxI]
+1. [binary tree summary](https://www.youtube.com/watch?v=PbGl8_-bZxI)
 
 ```
 # from resource#1
