@@ -13,7 +13,7 @@
 < INT_MAX: O(1) Math
 ```
 
-* [time complexity of recursion] (http://zxi.mytechroad.com/blog/sp/time-space-complexity-of-recursion-functions-sp4/)
+* [time complexity of recursion](http://zxi.mytechroad.com/blog/sp/time-space-complexity-of-recursion-functions-sp4/)
 
 ```
 Equation	Time	Space	Examples
