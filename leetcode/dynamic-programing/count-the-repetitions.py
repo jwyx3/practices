@@ -16,9 +16,13 @@ class Solution(object):
         :type n2: int
         :rtype: int
         """
+        # visited[k] will be repeated when it tried len(s2) + 1 times
         n = min(len(s2) + 1, n1)
+        # repeat_count: number of s2 found for first k s1
         repeat_count = [0] * (n + 1)
+        # next_idx: the index of s2 for next s1
         next_idx = [0] * (n + 1)
+        # the index of s1 for visited next_idx
         visited = [-1] * len(s2)
         visited[0] = 0
         j = count = 0
