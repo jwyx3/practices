@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/distinct-subsequences/
+# https://leetcode.com/problems/distinct-subsequences/discuss/37327/Easy-to-understand-DP-in-Java
 # Time: O(N * M)
 # Space: O(M)
 
