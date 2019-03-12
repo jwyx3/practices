@@ -41,3 +41,4 @@ class Solution(object):
 
 # TODO: check backtracking!!
 # https://leetcode.com/problems/number-of-squareful-arrays/solution/
+# Hamiltonian paths of this graph: paths that visit all the nodes exactly once
