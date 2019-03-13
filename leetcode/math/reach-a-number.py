@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/reach-a-number/
 # https://leetcode.com/problems/reach-a-number/discuss/112986/Concise-Python-with-explanation-and-example
+# https://www.youtube.com/watch?v=Bdw2Y9FrqcU
 # Time: O(sqrt(N))
 # Space: O(1)
 
