@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/insert-into-a-cyclic-sorted-list/
+# http://www.cnblogs.com/grandyang/p/9981163.html
 # corner case: None, one, duplicate
 # Time: O(N)
 # Space: O(1)
