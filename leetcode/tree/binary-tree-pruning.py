@@ -1,4 +1,16 @@
-# https://leetcode.com/problems/binary-tree-pruning/
+# solution:
+#   - post-order traversal
+#
+# for each node:
+#   if not node:
+#     return True  
+#   is_zero_left = _prune(node.left)
+#   is_zero_right = _prune(node.right)
+#   if is_zero_left:
+#     node.left = None
+#   if is_zero_right:
+#     node.right = None
+#   return node.val == 0 or is_zero_left or is_zero_right
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -18,7 +30,7 @@ class Solution(object):
         return root
         
     
-    # prune 0-subtree and return whether this is 0-subtree
+    # return prune 0-subtree and return whether this is 0-subtree
     def isZero(self, root):
         if not root:
             return True

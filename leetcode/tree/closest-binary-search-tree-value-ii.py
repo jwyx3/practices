@@ -1,4 +1,21 @@
-# https://leetcode.com/problems/sum-of-distances-in-tree/
+# solution:
+#   - in-order traversal get sorted list; t O(n), s O(n)
+#   - binary search find the closest element x in list; t O(log n)
+#   - start from x, search two directions to find k elements; t O(k)
+#   => t O(n + k), s O(n)
+#
+# follow-up: 
+#   Assume that the BST is balanced, could you solve it in less than O(n) runtime (where n = total nodes)?
+#
+#   idea: only need to find closest element and search its k closest predecessor and successor
+#
+#   for leaf node, its parent must be its closest predecessor or successor
+#
+#   - find the closest element x in the tree; t O(log n)
+#   - use two stacks to remember its predecessor and successor
+#   - similar to merge sort, compare next predecessor and successor, get the closest k elements
+#
+# refer: https://leetcode.com/problems/closest-binary-search-tree-value-ii/discuss/70503/O(logN)-Java-Solution-with-two-stacks-following-hint
 
 # Definition for a binary tree node.
 # class TreeNode(object):

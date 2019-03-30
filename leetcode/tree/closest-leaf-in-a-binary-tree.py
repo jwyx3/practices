@@ -1,5 +1,6 @@
-# https://leetcode.com/problems/closest-leaf-in-a-binary-tree/
-# similar to all-nodes-distance-k-in-binary-tree.py
+# solution
+#   - BFS to find node with x
+#   - if found x, keep search for first leaf node
 
 # Definition for a binary tree node.
 # class TreeNode(object):
